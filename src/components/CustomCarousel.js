@@ -18,6 +18,7 @@ const CustomCarousel = ({ data, height, styleContainer }) => {
     wrap: {
       width: screenInfo?.width,
       height: screenInfo?.height * Number(height || 0.25),
+      borderRadius: 5,
     },
   });
 
@@ -64,11 +65,12 @@ const CustomCarousel = ({ data, height, styleContainer }) => {
             type="octIcons"
             icon="dot-fill"
             size={20}
-            style={
+            style={[
+              tw`mx-2 mb-1`,
               activeSlide === index
-                ? tw`m-3 text-[${appColors?.secondary}]`
-                : tw`m-3 text-white`
-            }
+                ? tw`text-[${appColors?.primary}]`
+                : tw`text-white`,
+            ]}
           />
         ))}
       </View>

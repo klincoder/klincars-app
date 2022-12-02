@@ -9,7 +9,7 @@ import { appFonts } from "../config/data";
 const CustomText = ({ children, style, ...rest }) => {
   // Return component
   return (
-    <Text style={[style, { fontFamily: appFonts?.regular }]} {...rest}>
+    <Text style={style || { fontFamily: appFonts?.regular }} {...rest}>
       {children}
     </Text>
   ); // close return

@@ -1,6 +1,6 @@
 // Import resources
 import React, { useLayoutEffect } from "react";
-import { FlatList, View, ScrollView } from "react-native";
+import { FlatList, View } from "react-native";
 import tw from "twrnc";
 
 // Import custom files
@@ -9,37 +9,28 @@ import useAppSettings from "../hooks/useAppSettings";
 import CustomSafeView from "../components/CustomSafeView";
 import FormSearchCars from "../components/FormSearchCars";
 import CustomButton from "../components/CustomButton";
-import CustomCarousel from "../components/CustomCarousel";
 import CustomText from "../components/CustomText";
-import CustomSwitch from "../components/CustomSwitch";
 import useCarState from "../hooks/useCarState";
-import { appColors, carsList } from "../config/data";
+import HomeHeader from "../components/HomeHeader";
+import CarItem from "../components/CarItem";
 
 // Component
 const HomeScreen = () => {
   // Define state
-  const { tempCars } = useCarState();
+  const {
+    tempCars,
+    selectedBrand,
+    activeBrands,
+    withDriver,
+    handleSelectedBrand,
+    handleWithDriver,
+  } = useCarState();
 
   // Define app settings
   const { navigation, isMounted } = useAppSettings();
 
-  const carBrandList = [
-    "All",
-    "Lexus",
-    "Audi",
-    "Homda",
-    "Mercedes-Benz",
-    "Toyota",
-    "Kia",
-    "Nissan",
-    "Ford",
-    "Hyundai",
-    "BMW",
-    "Chevrolet",
-  ];
-
   // Debug
-  //console.log("Debug homeScreen: ",);
+  //console.log("Debug homeScreen: ", withDriver);
 
   // SIDE EFFECTS
   // SCREEN LAYOUT
@@ -62,7 +53,7 @@ const HomeScreen = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [navigation]);
+  }, [navigation, isMounted]);
 
   // Return component
   return (
@@ -76,38 +67,15 @@ const HomeScreen = () => {
           showsVerticalScrollIndicator={false}
           numColumns={2}
           initialNumToRender={12}
-          renderItem={({ item }) => (
-            <View style={tw`flex-0.5 m-2 h-52 bg-[#ddd]`}>
-              <CustomText style={tw`p-2 text-lg`}>{item?.title}</CustomText>
-            </View>
-          )}
+          renderItem={({ item }) => <CarItem rowData={item} />}
           ListHeaderComponent={
-            <>
-              {/** Carousel */}
-              <CustomCarousel
-                data={carsList?.[0]?.images}
-                styleContainer={tw`mb-4 rounded-xl`}
-              />
-
-              {/** Horizontal list of brands - chips */}
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={tw`mb-4`}
-              >
-                {/** Loop data */}
-                {carBrandList?.map((item) => (
-                  <CustomText key={item} style={tw`p-2 mr-3 border`}>
-                    {item}
-                  </CustomText>
-                ))}
-              </ScrollView>
-
-              {/** With driver switch */}
-              <View style={tw`mb-4`}>
-                <CustomSwitch title="With driver" />
-              </View>
-            </>
+            <HomeHeader
+              activeBrands={activeBrands}
+              selectedBrand={selectedBrand}
+              onPressBrand={(e) => handleSelectedBrand(e)}
+              withDriverVal={withDriver}
+              onPressWithDriver={(e) => handleWithDriver(e)}
+            />
           }
         />
       </View>

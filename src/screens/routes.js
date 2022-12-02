@@ -15,4 +15,5 @@ export default Object.freeze({
   POST_CAR: "PostCarScreen",
   SAVED_NAVIGATOR: "SavedNavigator",
   SAVED: "SavedScreen",
+  CAR_DETAILS: "CarDetailsScreen",
 });

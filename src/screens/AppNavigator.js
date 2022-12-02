@@ -11,6 +11,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import PasswordRecoveryScreen from "../screens/PasswordRecoveryScreen";
 import HomeNavigator from "../screens/HomeNavigator";
 import EditProfileScreen from "../screens/EditProfileScreen";
+import CarDetailsScreen from "./CarDetailsScreen";
 
 // Create stack navigator object
 const Stack = createStackNavigator();
@@ -28,6 +29,11 @@ const AppNavigator = ({ userID }) => {
       name: "EditProfileScreen",
       component: EditProfileScreen,
       options: { headerTitle: "Edit Profile" },
+    },
+    {
+      name: "CarDetailsScreen",
+      component: CarDetailsScreen,
+      options: { headerTitle: "Car Details" },
     },
   ];
 

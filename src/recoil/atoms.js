@@ -10,6 +10,12 @@ export const allUsersAtom = atom({
   default: [],
 });
 
+// ALL SAVED ATOM
+export const allSavedAtom = atom({
+  key: "allSavedAtom",
+  default: [],
+});
+
 /**********************
   USER
 **********************/

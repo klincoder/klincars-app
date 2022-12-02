@@ -7,17 +7,9 @@ import tw from "twrnc";
 import { appColors } from "../config/data";
 
 // Component
-const CustomDivider = ({ isBold, styleBorder }) => {
+const CustomDivider = ({ style, ...rest }) => {
   // Return component
-  return (
-    <Divider
-      style={
-        isBold
-          ? tw`border-2 border-[${styleBorder || appColors?.lightGray}]`
-          : ""
-      }
-    />
-  ); // close return
+  return <Divider {...rest} style={style || tw`my-3`} />; // close return
 }; // close component
 
 // Export
