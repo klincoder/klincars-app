@@ -4,7 +4,7 @@ import "dotenv/config";
 // Export
 export default {
   expo: {
-    name: "Car Rental",
+    name: "KlinCars",
     slug: "klincars-app",
     version: "1.0.0",
     orientation: "portrait",
