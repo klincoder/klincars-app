@@ -46,27 +46,27 @@ const FormSearchCars = () => {
   return (
     <View>
       {/** SEARCH AR CONTAINER */}
-      <View style={tw`flex flex-row items-center bg-white`}>
+      <View style={tw`flex flex-row items-center mr-3 bg-white`}>
         {/** Search bar input */}
         <CustomTextInput
           value={searchVal}
+          leftIconType="feather"
+          leftIconName="search"
+          placeholder="Search for car brand..."
+          styleContainer={tw`-mt-4 -mb-5 w-11/12`}
+          autoFocus={true}
+          disabled={!isSearchScreen}
           onChangeText={(val) => {
             setSearchVal(val);
             handleSearchCars(val);
           }}
-          leftIconType="feather"
-          leftIconName="search"
-          placeholder="Search for car brand..."
-          styleContainer={tw`-mt-4 -mb-5 mr-3 w-10/12`}
-          autoFocus={true}
-          disabled={!isSearchScreen}
         />
 
         {/** Filter */}
         <CustomButton
           isTouchable
           onPress={handleShowFilter}
-          styleTouchable={tw`w-1/12`}
+          //styleTouchable={tw`w-1/12`}
           disabled={!isSearchScreen}
         >
           <CustomIcon type="feather" icon="filter" size={28} />

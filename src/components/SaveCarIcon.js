@@ -102,7 +102,7 @@ const SaveCarIcon = ({ rowData }) => {
       <CustomButton isTouchable onPress={() => handleSaveCar(rowID)}>
         <CustomIcon
           type="antDesign"
-          size={28}
+          size={24}
           icon={isSaved ? "heart" : "hearto"}
           color={isSaved ? appColors?.primary : appColors?.black}
           style={tw`mr-4`}

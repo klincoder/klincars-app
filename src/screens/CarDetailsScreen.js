@@ -21,6 +21,7 @@ import SaveCarIcon from "../components/SaveCarIcon";
 import ShareIcon from "../components/ShareIcon";
 import useCarState from "../hooks/useCarState";
 import CustomCarousel from "../components/CustomCarousel";
+import CustomDivider from "../components/CustomDivider";
 import { useAuthContext } from "../context/AuthContext";
 import { appColors, appFonts, screenInfo } from "../config/data";
 import { handleFormatNumber, handleTitleCase } from "../config/functions";
@@ -30,7 +31,6 @@ import {
   CarItemPrice,
   CarItemTitle,
 } from "../components/CarItem";
-import CustomDivider from "../components/CustomDivider";
 
 // Component
 const CarDetailsScreen = () => {
@@ -40,8 +40,6 @@ const CarDetailsScreen = () => {
   // Define row data
   const route = useRoute();
   const rowData = route.params?.rowData;
-
-  // Define state
 
   // Define car state
   const { carInfo } = useCarState(rowData);
@@ -197,7 +195,7 @@ const CarDetailsScreen = () => {
       >
         <CustomButton
           isTouchable
-          //onPress={() => navigation.navigate(routes.CAR_BOOKING, { rowData })}
+          onPress={() => navigation.navigate(routes.CAR_BOOKING, { rowData })}
           styleTouchable={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
         >
           {/** Text */}

@@ -25,6 +25,8 @@ const CustomTextInput = ({
   errTouched,
   helperText,
   styleContainer,
+  styleInput,
+  styleInputContainer,
   ...rest
 }) => {
   // Define state
@@ -52,6 +54,7 @@ const CustomTextInput = ({
       inputContainerStyle={[
         tw`px-2 border rounded-lg`,
         focused && tw`border-[${appColors?.primary}]`,
+        styleInputContainer,
       ]}
       leftIcon={
         <CustomIcon

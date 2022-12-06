@@ -35,14 +35,14 @@ const HomeNavigator = () => {
       activeIcon: "search",
       label: "Search",
     },
-    {
-      name: "PostCarNavigator",
-      component: PostCarNavigator,
-      iconType: "antDesign",
-      iconName: "plussquareo",
-      activeIcon: "plussquare",
-      label: "Post",
-    },
+    // {
+    //   name: "PostCarNavigator",
+    //   component: PostCarNavigator,
+    //   iconType: "antDesign",
+    //   iconName: "plussquareo",
+    //   activeIcon: "plussquare",
+    //   label: "Post",
+    // },
     {
       name: "SavedNavigator",
       component: SavedNavigator,

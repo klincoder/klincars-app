@@ -12,6 +12,7 @@ import PasswordRecoveryScreen from "../screens/PasswordRecoveryScreen";
 import HomeNavigator from "../screens/HomeNavigator";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import CarDetailsScreen from "./CarDetailsScreen";
+import CarBookingScreen from "./CarBookingScreen";
 
 // Create stack navigator object
 const Stack = createStackNavigator();
@@ -34,6 +35,11 @@ const AppNavigator = ({ userID }) => {
       name: "CarDetailsScreen",
       component: CarDetailsScreen,
       options: { headerTitle: "Car Details" },
+    },
+    {
+      name: "CarBookingScreen",
+      component: CarBookingScreen,
+      options: { headerTitle: "Car Booking" },
     },
   ];
 

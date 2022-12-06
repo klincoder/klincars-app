@@ -57,23 +57,25 @@ const CustomCarousel = ({ data, height, styleContainer }) => {
       </ScrollView>
 
       {/** Indicators */}
-      <View style={tw`absolute bottom-0 flex flex-row self-center`}>
-        {/** Loop data */}
-        {data?.map((item, index) => (
-          <CustomIcon
-            key={item}
-            type="octIcons"
-            icon="dot-fill"
-            size={20}
-            style={[
-              tw`mx-2 mb-1`,
-              activeSlide === index
-                ? tw`text-[${appColors?.primary}]`
-                : tw`text-white`,
-            ]}
-          />
-        ))}
-      </View>
+      {data?.length > 1 && (
+        <View style={tw`absolute bottom-0 flex flex-row self-center`}>
+          {/** Loop data */}
+          {data?.map((item, index) => (
+            <CustomIcon
+              key={item}
+              type="octIcons"
+              icon="dot-fill"
+              size={20}
+              style={[
+                tw`mx-2 mb-1`,
+                activeSlide === index
+                  ? tw`text-[${appColors?.primary}]`
+                  : tw`text-white`,
+              ]}
+            />
+          ))}
+        </View>
+      )}
     </View>
   ); // close return
 }; // close component

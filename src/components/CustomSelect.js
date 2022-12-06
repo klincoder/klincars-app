@@ -38,7 +38,7 @@ const CustomSelect = ({
         {...rest}
         isLink
         hideDivider
-        title={title || "Select"}
+        title={title || `Choose ${label?.toLowerCase()}`}
         onPressLink={onPressSelect}
         containerStyle={tw`mx-3 border rounded-lg`}
         leftIconName={leftIconName || "arrowright"}

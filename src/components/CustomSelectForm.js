@@ -12,6 +12,9 @@ const CustomSelectForm = ({
   label,
   placeholder,
   sheetContent,
+  sheetRef,
+  snapPoints,
+  onPressSelect,
   ...rest
 }) => {
   // Destructure useFormikContext
@@ -31,6 +34,9 @@ const CustomSelectForm = ({
       errName={errors[name]}
       errTouched={touched[name]}
       sheetContent={sheetContent}
+      sheetRef={sheetRef}
+      snapPoints={snapPoints}
+      onPressSelect={onPressSelect}
     />
   ); // close return
 }; // close component

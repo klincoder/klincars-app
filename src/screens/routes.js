@@ -16,4 +16,5 @@ export default Object.freeze({
   SAVED_NAVIGATOR: "SavedNavigator",
   SAVED: "SavedScreen",
   CAR_DETAILS: "CarDetailsScreen",
+  CAR_BOOKING: "CarBookingScreen",
 });
