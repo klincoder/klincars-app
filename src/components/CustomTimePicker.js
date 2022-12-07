@@ -11,24 +11,33 @@ import { appColors, appFonts, newDate } from "../config/data";
 import { handleFormatDate } from "../config/functions";
 
 // Component
-const CustomDatePicker = ({
+const CustomTimePicker = ({
   label,
+  title,
+  leftIconType,
   leftIconName,
-  minDate,
-  maxDate,
+  minTime,
+  maxTime,
+  onChangeTime,
   sheetRef,
   snapPoints,
+  styleContainer,
   ...rest
 }) => {
   // Define state
   const [showTime, setShowTime] = useState(false);
   const [timeVal, setTimeVal] = useState(new Date());
+  const [isSelected, setIsSelected] = useState(false);
 
   // Define variables
-  const timeStr = handleFormatDate(timeVal, 4);
+  const timeStr = isSelected
+    ? handleFormatDate(timeVal, 4)
+    : title
+    ? handleFormatDate(title, 4)
+    : "Click to pick time";
 
   // Debug
-  //console.log("Debug customDatePicker: ",)
+  //console.log("Debug customTimePicker: ",)
 
   // FUNCTIONS
   // HANDLE SHOW TIME
@@ -39,12 +48,14 @@ const CustomDatePicker = ({
   // HANDLE CHANGE TIME
   const handleChangeTime = (e, selectedTime) => {
     setShowTime(false);
+    setIsSelected(true);
+    onChangeTime(selectedTime);
     setTimeVal(selectedTime);
   }; // close fxn
 
   // Return component
   return (
-    <View style={tw`mb-3`}>
+    <View style={[tw`mb-3`, styleContainer]}>
       {/** Label */}
       {label && (
         <CustomText style={[tw`mb-1 mx-3`, { fontFamily: appFonts?.medium }]}>
@@ -59,7 +70,8 @@ const CustomDatePicker = ({
         hideDivider
         title={timeStr || "Pick time"}
         onPressLink={handleShowTime}
-        lconName={leftIconName || "clockcircleo"}
+        leftIconType={leftIconType}
+        leftIconName={leftIconName || "clockcircleo"}
         containerStyle={tw`mx-3 border rounded-lg`}
       />
 
@@ -76,4 +88,4 @@ const CustomDatePicker = ({
 }; // close component
 
 // Export
-export default CustomDatePicker;
+export default CustomTimePicker;

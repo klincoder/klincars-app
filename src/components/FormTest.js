@@ -17,7 +17,7 @@ import CustomListItem from "./CustomListItem";
 import CustomDatePickerForm from "./CustomDatePickerForm";
 import CustomTimePickerForm from "./CustomTimePickerForm";
 import { useAuthContext } from "../context/AuthContext";
-import { appColors, appImages } from "../config/data";
+import { appColors, appImages, testList } from "../config/data";
 
 // Component
 const FormTest = () => {
@@ -29,28 +29,6 @@ const FormTest = () => {
 
   // Define ref
   const coursesRef = useRef(null);
-
-  // Define variables
-  const testList = [
-    {
-      id: "123",
-      title: "Amy Farha",
-      description: "1 Vice President lorep ipsum lorep ipsum lorep ipsum.",
-      image: appImages?.creditCard,
-    },
-    {
-      id: "456",
-      title: "Chris Jackson",
-      description: "3 Vice Chairman lorep ipsum lorep ipsum lorep ipsum.",
-      image: appImages?.bankTransfer,
-    },
-    {
-      id: "789",
-      title: "Caleb Obodefula",
-      description: "3 Vice Chairman lorep ipsum lorep ipsum lorep ipsum.",
-      image: appImages?.general,
-    },
-  ];
 
   // Debug
   //console.log("Debug formTest: ",)
@@ -132,7 +110,7 @@ const FormTest = () => {
                           coursesRef.current.close();
                           setFieldValue("courses", item);
                         }, [])}
-                        containerStyle={
+                        styleLinkContainer={
                           values.courses?.id === item?.id &&
                           tw`rounded-lg border-l-4 border-[${appColors?.primary}]`
                         }

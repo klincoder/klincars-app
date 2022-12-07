@@ -7,25 +7,37 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 // Import custom files
 import CustomText from "./CustomText";
 import CustomListItem from "./CustomListItem";
-import { appColors, appFonts, jsDate } from "../config/data";
-import { handleFormatDate } from "../config/functions";
+import CustomHelperText from "./CustomHelperText";
+import { appFonts, jsDate } from "../config/data";
+import { handleDateAddDays, handleFormatDate } from "../config/functions";
 
 // Component
 const CustomDatePicker = ({
   label,
+  title,
+  leftIconType,
   leftIconName,
   minDate,
   maxDate,
+  onChangeDate,
+  styleContainer,
+  helperText,
+  errMsg,
   ...rest
 }) => {
   // Define state
   const [showDate, setShowDate] = useState(false);
   const [dateVal, setDateVal] = useState(new Date());
+  const [isSelected, setIsSelected] = useState(false);
 
   // Define variables
-  const dateStr = handleFormatDate(dateVal, 1);
   const tomorrow = handleDateAddDays(jsDate, 1);
   const tomorrowMax = handleDateAddDays(jsDate, 30);
+  const dateStr = isSelected
+    ? handleFormatDate(dateVal, 1)
+    : title
+    ? handleFormatDate(title, 1)
+    : "Click to pick date";
 
   // Debug
   //console.log("Debug customDatePicker: ",)
@@ -39,12 +51,14 @@ const CustomDatePicker = ({
   // HANDLE CHANGE DATE
   const handleChangeDate = (e, selectedDate) => {
     setShowDate(false);
+    setIsSelected(true);
+    onChangeDate(selectedDate);
     setDateVal(selectedDate);
   }; // close fxn
 
   // Return component
   return (
-    <View style={tw`mb-3`}>
+    <View style={[tw`mb-3`, styleContainer]}>
       {/** Label */}
       {label && (
         <CustomText style={[tw`mb-1 mx-3`, { fontFamily: appFonts?.medium }]}>
@@ -57,11 +71,18 @@ const CustomDatePicker = ({
         {...rest}
         isLink
         hideDivider
-        title={dateStr || "Pick date"}
+        title={dateStr}
         onPressLink={handleShowDate}
-        lconName={leftIconName || "calendar"}
+        leftIconType={leftIconType}
+        leftIconName={leftIconName || "calendar"}
         containerStyle={tw`mx-3 border rounded-lg`}
       />
+
+      {/** Helper text */}
+      <CustomHelperText visible={helperText} title={helperText} />
+
+      {/** Error message */}
+      <CustomHelperText isError visible={errMsg} title={errMsg} />
 
       {/** MODAL */}
       {showDate && (

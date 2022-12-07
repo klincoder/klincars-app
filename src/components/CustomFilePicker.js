@@ -6,25 +6,22 @@ import tw from "twrnc";
 // Import custom files
 import CustomText from "./CustomText";
 import CustomListItem from "./CustomListItem";
-import CustomBottomSheet from "./CustomBottomSheet";
 import CustomHelperText from "./CustomHelperText";
-import { appColors, appFonts } from "../config/data";
+import { appFonts } from "../config/data";
 
 // Component
-const CustomSelect = ({
+const CustomFilePicker = ({
   label,
   title,
+  leftIconType,
   leftIconName,
-  onPressSelect,
-  sheetRef,
-  snapPoints,
-  sheetContent,
+  onPress,
   helperText,
   errMsg,
   ...rest
 }) => {
   // Debug
-  //console.log("Debug customSelect: ",)
+  //console.log("Debug customFilePicker: ",)
 
   // Return component
   return (
@@ -43,8 +40,9 @@ const CustomSelect = ({
         hideDivider
         title={title || `Choose ${label?.toLowerCase()}`}
         containerStyle={tw`mx-3 border rounded-lg`}
+        leftIconType={leftIconType}
         leftIconName={leftIconName || "arrowright"}
-        onPressLink={onPressSelect}
+        onPressLink={onPress}
       />
 
       {/** Helper text */}
@@ -52,14 +50,9 @@ const CustomSelect = ({
 
       {/** Error message */}
       <CustomHelperText isError visible={errMsg} title={errMsg} />
-
-      {/** Modal */}
-      <CustomBottomSheet {...rest} ref={sheetRef} snapPoints={snapPoints}>
-        {sheetContent}
-      </CustomBottomSheet>
     </View>
   ); // close return
 }; // close component
 
 // Export
-export default CustomSelect;
+export default CustomFilePicker;

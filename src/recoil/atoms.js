@@ -51,3 +51,9 @@ export const networkDataAtom = atom({
   key: "networkDataAtom",
   default: null,
 });
+
+// CAR BOOKING ATOM
+export const carBookingAtom = atom({
+  key: "carBookingAtom",
+  default: null,
+});

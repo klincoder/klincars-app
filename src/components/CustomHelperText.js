@@ -1,9 +1,13 @@
 // Import resources
 import React from "react";
+import tw from "twrnc";
+
+// Import custom files
 import CustomText from "./CustomText";
+import { appColors, appFonts } from "../config/data";
 
 // Component
-const CustomHelperText = ({ title, visible, isError }) => {
+const CustomHelperText = ({ title, visible, isError, styleText, ...rest }) => {
   // If not visible or empty title
   if (!visible || !title) return null;
 
@@ -13,9 +17,16 @@ const CustomHelperText = ({ title, visible, isError }) => {
   // Return component
   return (
     <CustomText
-      type={isError ? "error" : "info"}
+      {...rest}
       visible={visible}
-      padding="none"
+      style={[
+        styleText,
+        tw`text-xs ml-4`,
+        { fontFamily: appFonts?.medium },
+        isError
+          ? tw`text-[${appColors?.danger}]`
+          : tw`mt-0.5 text-[${appColors?.gray}]`,
+      ]}
     >
       {title}
     </CustomText>

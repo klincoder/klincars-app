@@ -5,7 +5,7 @@ import React from "react";
 
 // Component
 const BlankHook = () => {
-  // Define
+  // Define variables
   let testFxn;
 
   // Debug

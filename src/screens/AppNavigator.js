@@ -13,6 +13,8 @@ import HomeNavigator from "../screens/HomeNavigator";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import CarDetailsScreen from "./CarDetailsScreen";
 import CarBookingScreen from "./CarBookingScreen";
+import CarCheckoutScreen from "./CarCheckoutScreen";
+import CarCompleteScreen from "./CarCompleteScreen";
 
 // Create stack navigator object
 const Stack = createStackNavigator();
@@ -34,12 +36,22 @@ const AppNavigator = ({ userID }) => {
     {
       name: "CarDetailsScreen",
       component: CarDetailsScreen,
-      options: { headerTitle: "Car Details" },
+      options: { headerTitle: "Details" },
     },
     {
       name: "CarBookingScreen",
       component: CarBookingScreen,
-      options: { headerTitle: "Car Booking" },
+      options: { headerTitle: "Booking" },
+    },
+    {
+      name: "CarCheckoutScreen",
+      component: CarCheckoutScreen,
+      options: { headerTitle: "Checkout" },
+    },
+    {
+      name: "CarCompleteScreen",
+      component: CarCompleteScreen,
+      options: { headerTitle: "Complete", headerShown: false },
     },
   ];
 

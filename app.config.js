@@ -32,6 +32,17 @@ export default {
     web: {
       favicon: "./src/assets/favicon.png",
     },
+    plugins: [
+      [
+        "expo-image-picker",
+        {
+          cameraPermission: "Allow $(PRODUCT_NAME) to access your camera",
+          photosPermission: "Allow $(PRODUCT_NAME) to access your photos",
+          // microphonePermission:
+          //   "Allow $(PRODUCT_NAME) to access your microphone",
+        },
+      ],
+    ],
     extra: {
       // Dev
       fireDevApiKey: process.env.FIREBASE_DEV_API_KEY,

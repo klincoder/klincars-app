@@ -189,25 +189,16 @@ const CarDetailsScreen = () => {
       {/** BUTTON - BOOK NOW */}
       <View
         style={[
-          tw`items-center justify-center py-5 w-full absolute bottom-0 z-1`,
+          tw`items-center justify-center py-3 w-full absolute bottom-0 z-1`,
           { backgroundColor: "rgba(255, 255, 255, 0.7)" },
         ]}
       >
         <CustomButton
-          isTouchable
+          isNormal
+          title="Book Now"
           onPress={() => navigation.navigate(routes.CAR_BOOKING, { rowData })}
-          styleTouchable={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
-        >
-          {/** Text */}
-          <CustomText
-            style={[
-              tw`text-xl text-center text-white`,
-              { fontFamily: appFonts?.medium },
-            ]}
-          >
-            Book Now
-          </CustomText>
-        </CustomButton>
+          styleNormalButton={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
+        />
       </View>
 
       {/** SCROLL VIEW */}

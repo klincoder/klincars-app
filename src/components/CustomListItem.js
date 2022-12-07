@@ -95,7 +95,7 @@ const CustomListItem = ({
           onPress={onPressLink}
           styleTouchable={styleLinkContainer}
         >
-          <ListItem bottomDivider={showDivider} {...rest}>
+          <ListItem {...rest} bottomDivider={showDivider}>
             {/** COL 1 */}
             {/** If leftImage */}
             {leftImage && (

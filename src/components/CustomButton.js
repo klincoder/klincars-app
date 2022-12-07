@@ -23,6 +23,8 @@ const CustomButton = ({
   onPress,
   styleText,
   styleTouchable,
+  styleNormalTitle,
+  styleNormalButton,
   children,
   ...rest
 }) => {
@@ -36,8 +38,15 @@ const CustomButton = ({
           title={title || "Submit"}
           type={type || "solid"}
           onPress={onPress}
-          titleStyle={[tw`text-lg uppercase`, { fontFamily: appFonts?.medium }]}
-          buttonStyle={tw`mt-3 rounded-lg bg-[${appColors?.primary}]`}
+          titleStyle={[
+            tw`text-xl`,
+            { fontFamily: appFonts?.medium },
+            styleNormalTitle,
+          ]}
+          buttonStyle={[
+            tw`mt-3 rounded-lg bg-[${appColors?.primary}]`,
+            styleNormalButton,
+          ]}
         />
       )}
 
