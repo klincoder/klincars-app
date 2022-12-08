@@ -1,12 +1,12 @@
 // Import resources
-import React, { useRef, useCallback, useEffect } from "react";
+import React, { useRef, useCallback, useEffect, useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import tw from "twrnc";
 import { useRoute } from "@react-navigation/native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import { useRecoilState } from "recoil";
+import { BottomSheetFlatList, BottomSheetView } from "@gorhom/bottom-sheet";
 
 // Import custom files
 import routes from "./routes";
@@ -22,8 +22,10 @@ import CustomDatePicker from "../components/CustomDatePicker";
 import LocationItem from "../components/LocationItem";
 import CustomFilePicker from "../components/CustomFilePicker";
 import useFilePickerState from "../hooks/useFilePickerState";
+import PaymentMethodItem from "../components/PaymentMethodItem";
+import StickyBottomView from "../components/StickyBottomView";
 import { useAuthContext } from "../context/AuthContext";
-import { appColors, locationList } from "../config/data";
+import { appColors, locationList, paymentMethodList } from "../config/data";
 import { carBookingAtom } from "../recoil/atoms";
 
 // Component
@@ -31,15 +33,22 @@ const CarBookingScreen = () => {
   // Define auth context
   const { user } = useAuthContext();
 
+  // Define app settings
+  const { todaysDate, navigation, isMounted } = useAppSettings();
+
   // Define ref
   const pickupLocRef = useRef(null);
   const returnLocRef = useRef(null);
+  const paymentMethodRef = useRef(null);
+
+  // Define row data
+  const route = useRoute();
+  const rowData = route.params?.rowData;
 
   // Define state
+  const { carInfo } = useCarState(rowData);
   const [bookingVal, setBookingVal] = useRecoilState(carBookingAtom);
-
-  // Define app settings
-  const { todaysDate, navigation, isMounted } = useAppSettings();
+  const { fileInfo, selectedImage, handlePickImage } = useFilePickerState();
 
   // Define alert
   const alert = useCustomAlertState();
@@ -47,15 +56,8 @@ const CarBookingScreen = () => {
   // Define spinner
   const spinner = useCustomToastState();
 
-  // Define row data
-  const route = useRoute();
-  const rowData = route.params?.rowData;
-
-  // Define car state
-  const { carInfo } = useCarState(rowData);
-
-  // Define useFilePicker
-  const { fileInfo, selectedImage, handlePickImage } = useFilePickerState();
+  // Define useMemo
+  const paymentMethodSnap = useMemo(() => ["30%"], []);
 
   // Debug
   //console.log("Debug carBookingScreen: ", selectedImage);
@@ -66,20 +68,23 @@ const CarBookingScreen = () => {
     rowData: rowData,
     pickupLoc: bookingVal?.pickupLoc ? bookingVal?.pickupLoc : "",
     returnLoc: bookingVal?.returnLoc ? bookingVal?.returnLoc : "",
-    pickupDate: bookingVal?.pickupDate ? bookingVal?.pickupDate : "",
-    returnDate: bookingVal?.returnDate ? bookingVal?.returnDate : "",
+    startDate: bookingVal?.startDate ? bookingVal?.startDate : "",
+    endDate: bookingVal?.endDate ? bookingVal?.endDate : "",
     proofOfId: bookingVal?.proofOfId ? bookingVal?.proofOfId : "",
     proofOfAddr: bookingVal?.proofOfAddr ? bookingVal?.proofOfAddr : "",
+    proofOfAddr: bookingVal?.proofOfAddr ? bookingVal?.proofOfAddr : "",
+    paymentMethod: bookingVal?.paymentMethod ? bookingVal?.paymentMethod : "",
   };
 
   // Validate
   const validate = Yup.object().shape({
     pickupLoc: Yup.object().required("Required").nullable(),
     returnLoc: Yup.object().required("Required").nullable(),
-    pickupDate: Yup.string().required("Required"),
-    returnDate: Yup.string().required("Required"),
+    startDate: Yup.string().required("Required"),
+    endDate: Yup.string().required("Required"),
     //proofOfId: Yup.string().required("Required"),
     //proofOfAddr: Yup.string().required("Required"),
+    paymentMethod: Yup.string().required("Required"),
   });
 
   // Define useFormik
@@ -110,6 +115,12 @@ const CarBookingScreen = () => {
     []
   ); // close fxn
 
+  // HANDLE PAYMENT METHOD SHEET
+  const handlePaymentMethodSheet = useCallback(
+    () => paymentMethodRef.current?.present(),
+    []
+  ); // close fxn
+
   // SIDE EFFECTS
   // SET BOOKING VALUES
   useEffect(() => {
@@ -121,13 +132,8 @@ const CarBookingScreen = () => {
   // Return component
   return (
     <CustomSafeView>
-      {/** CONTINUE BUTTON */}
-      <View
-        style={[
-          tw`items-center justify-center py-3 w-full absolute bottom-0 z-1`,
-          { backgroundColor: "rgba(255, 255, 255, 0.7)" },
-        ]}
-      >
+      {/** STICKY BOTTOM VIEW */}
+      <StickyBottomView styleContainer={tw`items-center justify-center`}>
         <CustomButton
           isNormal
           title="Contnue"
@@ -135,7 +141,7 @@ const CarBookingScreen = () => {
           disabled={!formik.isValid || formik.isSubmitting}
           styleNormalButton={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
         />
-      </View>
+      </StickyBottomView>
 
       {/** SCROLL VIEW */}
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -206,30 +212,30 @@ const CarBookingScreen = () => {
 
           {/** Pickup date & time */}
           <CustomDatePicker
-            name="pickupDate"
+            name="startDate"
             label="Pickup Date"
-            title={formik.values.pickupDate}
+            title={formik.values.startDate}
             leftIconType="fontAwesome"
             leftIconName="calendar-plus-o"
-            errMsg={formik.errors.pickupDate}
-            onChangeDate={(e) => formik.setFieldValue("pickupDate", e)}
+            errMsg={formik.errors.startDate}
+            onChangeDate={(e) => formik.setFieldValue("startDate", e)}
           />
 
           {/** Return date & time */}
           <CustomDatePicker
-            name="returnDate"
+            name="endDate"
             label="Return Date"
-            title={formik.values.returnDate}
+            title={formik.values.endDate}
             leftIconType="fontAwesome"
             leftIconName="calendar-check-o"
-            errMsg={formik.errors.returnDate}
-            onChangeDate={(e) => formik.setFieldValue("returnDate", e)}
+            errMsg={formik.errors.endDate}
+            onChangeDate={(e) => formik.setFieldValue("endDate", e)}
           />
 
           {/** Proof of id */}
           <CustomFilePicker
             name="proofOfId"
-            label="Proof of Ddentity"
+            label="Proof of Identity"
             title={formik.values.proofOfId}
             leftIconName="user"
             errMsg={formik.errors.proofOfId}
@@ -250,6 +256,35 @@ const CarBookingScreen = () => {
             leftIconName="map"
             errMsg={formik.errors.proofOfAddr}
             helperText="E.g. Bank Statement or Utility bill"
+          />
+
+          {/** Payment method */}
+          <CustomSelect
+            name="paymentMethod"
+            label="Payment Method"
+            title={formik.values.paymentMethod}
+            leftIconType="antDesign"
+            leftIconName="creditcard"
+            onPressSelect={handlePaymentMethodSheet}
+            errMsg={formik.errors.paymentMethod}
+            sheetRef={paymentMethodRef}
+            snapPoints={paymentMethodSnap}
+            sheetContent={
+              <BottomSheetView>
+                {/** Loop data */}
+                {paymentMethodList?.map((item) => (
+                  <PaymentMethodItem
+                    key={item?.id}
+                    rowData={item}
+                    isSelected={formik.values.paymentMethod === item?.title}
+                    onPress={() => {
+                      paymentMethodRef.current.close();
+                      formik.setFieldValue("paymentMethod", item?.title);
+                    }}
+                  />
+                ))}
+              </BottomSheetView>
+            }
           />
         </View>
       </ScrollView>

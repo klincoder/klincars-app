@@ -10,7 +10,7 @@ import { appColors, screenInfo } from "../config/data";
 const CustomBottomSheet = forwardRef(
   ({ snapPoints, onPressBackdrop, children, ...rest }, ref) => {
     // Define variables
-    const snapPointsDefault = useMemo(() => ["50%"], []);
+    const snapPointsDefault = useMemo(() => ["40%"], []);
     snapPoints = snapPoints || snapPointsDefault;
 
     // Debug

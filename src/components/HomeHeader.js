@@ -43,19 +43,10 @@ const HomeHeader = ({
           return (
             <CustomChip
               key={item?.id}
-              type={isSelected ? "solid" : "outline"}
+              isSolid={isSelected}
               title={item?.title}
-              styleContainer={tw`mr-2`}
               onPress={() => onPressBrand(item?.title)}
-              titleStyle={[
-                tw`text-base ${isSelected ? "text-white" : "text-black"}`,
-                { fontFamily: appFonts?.medium },
-              ]}
-              buttonStyle={tw`${
-                isSelected
-                  ? `border-[${appColors?.primary}] bg-[${appColors?.primary}]`
-                  : "border-black"
-              }`}
+              styleContainer={tw`mr-2`}
             />
           );
         })}

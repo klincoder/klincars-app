@@ -22,6 +22,7 @@ import ShareIcon from "../components/ShareIcon";
 import useCarState from "../hooks/useCarState";
 import CustomCarousel from "../components/CustomCarousel";
 import CustomDivider from "../components/CustomDivider";
+import StickyBottomView from "../components/StickyBottomView";
 import { useAuthContext } from "../context/AuthContext";
 import { appColors, appFonts, screenInfo } from "../config/data";
 import { handleFormatNumber, handleTitleCase } from "../config/functions";
@@ -186,20 +187,15 @@ const CarDetailsScreen = () => {
         cancelText="Close"
       />
 
-      {/** BUTTON - BOOK NOW */}
-      <View
-        style={[
-          tw`items-center justify-center py-3 w-full absolute bottom-0 z-1`,
-          { backgroundColor: "rgba(255, 255, 255, 0.7)" },
-        ]}
-      >
+      {/** STICKY BOTTOM VIEW */}
+      <StickyBottomView styleContainer={tw`items-center justify-center`}>
         <CustomButton
           isNormal
           title="Book Now"
           onPress={() => navigation.navigate(routes.CAR_BOOKING, { rowData })}
           styleNormalButton={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
         />
-      </View>
+      </StickyBottomView>
 
       {/** SCROLL VIEW */}
       <ScrollView showsVerticalScrollIndicator={false}>

@@ -47,7 +47,7 @@ const CarItem = ({ rowData }) => {
       {/** DETAILS CONTAINER */}
       <View style={tw`p-2`}>
         {/** Title */}
-        <CarItemTitle title={carInfo?.title} />
+        <CarItemTitle title={carInfo?.title} styleTitle={tw`mb-1`} />
 
         {/** Location */}
         <CarItemMeta
@@ -123,10 +123,12 @@ export const CarItemPrice = ({ price, type, stylePrice }) => {
 }; // close component
 
 // CAR ITEM META
-export const CarItemMeta = ({ title, iconType, iconName }) => {
+export const CarItemMeta = ({ title, iconType, iconName, styleMeta }) => {
   // Return component
   return (
-    <CustomText style={[tw`text-sm`, { fontFamily: appFonts?.regular }]}>
+    <CustomText
+      style={[tw`text-xs`, { fontFamily: appFonts?.regular }, styleMeta]}
+    >
       <CustomIcon type={iconType} icon={iconName} /> {title}
     </CustomText>
   ); // close return

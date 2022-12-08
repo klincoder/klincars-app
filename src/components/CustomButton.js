@@ -28,6 +28,9 @@ const CustomButton = ({
   children,
   ...rest
 }) => {
+  // Define variables
+  const isOutline = type?.toLowerCase() === "outline";
+
   // Return component
   return (
     <>
@@ -39,13 +42,17 @@ const CustomButton = ({
           type={type || "solid"}
           onPress={onPress}
           titleStyle={[
+            styleNormalTitle,
             tw`text-xl`,
             { fontFamily: appFonts?.medium },
-            styleNormalTitle,
+            isOutline ? tw`text-[${appColors?.primary}]` : tw`text-white`,
           ]}
           buttonStyle={[
-            tw`mt-3 rounded-lg bg-[${appColors?.primary}]`,
             styleNormalButton,
+            tw`mt-3 rounded-lg`,
+            isOutline
+              ? tw`border-[${appColors?.primary}]`
+              : tw`bg-[${appColors?.primary}]`,
           ]}
         />
       )}

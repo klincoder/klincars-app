@@ -1,17 +1,24 @@
 // Import resources
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRecoilValue } from "recoil";
 
 // Import custom files
 //import { activeCarsAtom } from "../recoil/atoms";
 import { carBrandList, carsList, currSymbol } from "../config/data";
-import { handleFormatNumber } from "../config/functions";
+import { carBookingAtom } from "../recoil/atoms";
+import {
+  handleDayJsDiff,
+  handleDayJsFormat,
+  handleFormatNumber,
+  handleSliceString,
+} from "../config/functions";
 
 // Component
 const useCarState = (rowData) => {
   // Define state
   const activeCars = carsList; //useRecoilValue(activeCarsAtom);
   const activeBrands = carBrandList; //useRecoilValue(activeBrandsAtom);
+  const bookingVal = useRecoilValue(carBookingAtom);
   const [tempCars, setTempCars] = useState(activeCars);
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [withDriver, setWithDriver] = useState(false);
@@ -22,6 +29,7 @@ const useCarState = (rowData) => {
     id: rowData?.id,
     userID: rowData?.userID,
     title: rowData?.title,
+    titleFormat: handleSliceString(rowData?.title, 0, 18),
     desc: rowData?.description,
     location: rowData?.location,
     image: rowData?.images?.[0],
@@ -43,6 +51,47 @@ const useCarState = (rowData) => {
     registered: rowData?.registered === true ? "Yes" : "No",
     seats: rowData?.seats,
     year: rowData?.year,
+  };
+  const isBookingProofID = bookingVal?.proofOfId ? "Yes" : "No";
+  const isBookingProofAddr = bookingVal?.proofOfAddr ? "Yes" : "No";
+  const bookingPickupLoc = bookingVal?.pickupLoc?.title;
+  const bookingReturnLoc = bookingVal?.returnLoc?.title;
+  const bookingStartDate = bookingVal?.startDate;
+  const bookingEndDate = bookingVal?.endDate;
+  const bookingStartDateFormat = handleDayJsFormat(bookingStartDate, 1);
+  const bookingEndDateFormat = handleDayJsFormat(bookingEndDate, 1);
+  const bookingDays = handleDayJsDiff(bookingStartDate, bookingEndDate);
+  const bookingDaysFormat = `${bookingDays} days`;
+  const bookingPrice = handleFormatNumber(Number(carInfo?.price * bookingDays));
+  const bookingPriceFormat = `${currSymbol?.gh}${bookingPrice}`;
+  const bookingPaymentMethod = bookingVal?.paymentMethod;
+  const bookingDetailsArr = [
+    { key: "Pickup Location", value: bookingPickupLoc },
+    { key: "Return Location", value: bookingReturnLoc },
+    { key: "Start Date", value: bookingStartDateFormat },
+    { key: "End Date", value: bookingEndDateFormat },
+    { key: "Proof of Identity", value: isBookingProofID },
+    { key: "Proof of Address", value: isBookingProofAddr },
+    { key: "Payment Method", value: bookingPaymentMethod },
+  ];
+  const bookingPricingArr = [
+    { key: "Number of Days", value: bookingDaysFormat },
+    { key: "Price Per Day", value: carInfo?.priceFormat },
+    { key: "Total Payment", value: bookingPriceFormat },
+  ];
+  const bookingInfo = {
+    pickupLoc: bookingPickupLoc,
+    returnLoc: bookingReturnLoc,
+    startDate: bookingStartDate,
+    endDate: bookingEndDate,
+    startDateFormat: bookingStartDateFormat,
+    endDateFormat: bookingEndDateFormat,
+    days: bookingDays,
+    daysFormat: bookingDaysFormat,
+    price: bookingPrice,
+    priceFormat: bookingPriceFormat,
+    details: bookingDetailsArr,
+    pricing: bookingPricingArr,
   };
 
   // Debug
@@ -111,11 +160,12 @@ const useCarState = (rowData) => {
 
   // Return component
   return {
-    tempCars,
-    carInfo,
     selectedBrand,
     activeBrands,
     withDriver,
+    tempCars,
+    carInfo,
+    bookingInfo,
     handleSearchCars,
     handleSelectedBrand,
     handleWithDriver,

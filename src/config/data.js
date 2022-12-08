@@ -37,7 +37,7 @@ export const screenInfo = {
 // APP COLORS
 export const appColors = {
   primary: "#45ac20", //"#143109",
-  secondary: "#2b6c14", //"#F9F871",
+  secondary: "#235610", //"#F9F871",
   danger: "#ff5252",
   success: "#198754",
   error: "#dc3545",
@@ -46,10 +46,10 @@ export const appColors = {
   white: "#ffffff",
   black: "#000000",
   gray: "#808080",
-  lightPrimary: "#2b6c14",
-  veryLightPrimary: "#45ac20",
-  lightSecondary: "#fafa85",
-  veryLightSecondary: "#fbfb9d",
+  lightPrimary: "#56d728",
+  veryLightPrimary: "#89e368",
+  lightSecondary: "#348118",
+  veryLightSecondary: "#3d971c",
   lightDanger: "#FF8080",
   veryLightDanger: "#FFB3B3",
   lightSuccess: "#24C278",
@@ -450,5 +450,21 @@ export const locationList = [
     id: "789",
     title: "Cape Coast",
     image: appImages?.location,
+  },
+];
+
+// PAYMENT METHOD LIST
+export const paymentMethodList = [
+  {
+    id: "123",
+    title: "Pay on Pickup",
+    description: "1hr reservation limit",
+    image: appImages?.general,
+  },
+  {
+    id: "456",
+    title: "Pay Now",
+    description: "Reserved unitl end date expires",
+    image: appImages?.general,
   },
 ];

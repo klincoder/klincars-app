@@ -5,22 +5,59 @@ import tw from "twrnc";
 import { Chip } from "@rneui/themed";
 
 // Import custom files
-import CustomImage from "./CustomImage";
+import { appColors, appFonts } from "../config/data";
 
 // Component
-const CustomChip = ({ type, title, styleContainer, onPress, ...rest }) => {
+const CustomChip = ({
+  isSolid,
+  title,
+  onPress,
+  styleContainer,
+  styleTitle,
+  ...rest
+}) => {
   // Debug
-  //console.log("Debug customChip: ",)
+  //console.log("Debug customChip: ", { isSolidType, type });
 
   // Return component
   return (
-    <Chip
-      {...rest}
-      type={type || "outline"}
-      title={title}
-      containerStyle={styleContainer}
-      onPress={onPress}
-    />
+    <>
+      {/** If isSolid */}
+      {isSolid ? (
+        <Chip
+          {...rest}
+          type="solid"
+          title={title || "Title"}
+          onPress={onPress}
+          buttonStyle={tw`bg-[${appColors?.primary}]`}
+          titleStyle={[
+            styleTitle,
+            tw`text-white`,
+            { fontFamily: appFonts?.medium },
+          ]}
+          containerStyle={[
+            styleContainer,
+            tw`border border-[${appColors?.primary}]`,
+          ]}
+        />
+      ) : (
+        <Chip
+          {...rest}
+          type="outline"
+          title={title || "Title"}
+          onPress={onPress}
+          titleStyle={[
+            styleTitle,
+            tw`text-[${appColors?.primary}]`,
+            { fontFamily: appFonts?.medium },
+          ]}
+          containerStyle={[
+            styleContainer,
+            tw`border border-[${appColors?.lightPrimary}]`,
+          ]}
+        />
+      )}
+    </>
   ); // close return
 }; // close component
 

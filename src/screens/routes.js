@@ -18,5 +18,7 @@ export default Object.freeze({
   CAR_DETAILS: "CarDetailsScreen",
   CAR_BOOKING: "CarBookingScreen",
   CAR_CHECKOUT: "CarCheckoutScreen",
-  CAR_COMPLETE: "CarCompletteScreen",
+  CAR_COMPLETE: "CarCompleteScreen",
+  ORDERS: "OrdersScreen",
+  ORDER_DETAILS: "OrderDetailsScreen",
 });

@@ -15,6 +15,8 @@ import CarDetailsScreen from "./CarDetailsScreen";
 import CarBookingScreen from "./CarBookingScreen";
 import CarCheckoutScreen from "./CarCheckoutScreen";
 import CarCompleteScreen from "./CarCompleteScreen";
+import OrdersScreen from "./OrdersScreen";
+import OrderDetailsScreen from "./OrderDetailsScreen";
 
 // Create stack navigator object
 const Stack = createStackNavigator();
@@ -52,6 +54,16 @@ const AppNavigator = ({ userID }) => {
       name: "CarCompleteScreen",
       component: CarCompleteScreen,
       options: { headerTitle: "Complete", headerShown: false },
+    },
+    {
+      name: "OrdersScreen",
+      component: OrdersScreen,
+      options: { headerTitle: "Orders" },
+    },
+    {
+      name: "OrderDetailsScreen",
+      component: OrderDetailsScreen,
+      options: { headerTitle: "Order Details" },
     },
   ];
 

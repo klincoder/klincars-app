@@ -2,6 +2,9 @@
 import moment from "moment";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
+import dayjs from "dayjs";
+import dayjsUTC from "dayjs/plugin/utc";
+dayjs.extend(dayjsUTC);
 
 // Import custom files
 import { baseUrl } from "./data";
@@ -81,11 +84,9 @@ export const handlePickImage = async () => {
     aspect: [16, 9],
     quality: 1,
   });
-  // Debug
-  //console.log("Deug fxnPickImage", result);
   // If !result cancelled
-  if (!result.cancelled) {
-    return result.uri;
+  if (!result?.canceled) {
+    return result?.assets?.[0]?.uri;
   } // close if cancelled
 }; // close fxn
 
@@ -373,4 +374,44 @@ export const handleDateFormat = (dateVal) => {
     month: "short",
     day: "numeric",
   });
+}; // close fxn
+
+// HANDLE DAYJS DATE DIFFERENCE
+export const handleDayJsDiff = (date1, date2, unit) => {
+  // If empty args, return
+  if (!date1 || !date2) return null;
+  // Define variables
+  date1 = dayjs(date1);
+  date2 = dayjs(date2);
+  unit = unit || "day";
+  const result = date2?.diff(date1, unit);
+  return result;
+}; // close fxn
+
+// HANDLE DAYJS FORMAT
+export const handleDayJsFormat = (dateVal, formatType) => {
+  // If empty args, return
+  if (!dateVal) return;
+  // Define variables
+  let result;
+  // Switch formatType
+  switch (formatType) {
+    case 1:
+      result = dayjs.utc(dateVal).format("MMM D, YYYY");
+      break;
+    case 2:
+      result = dayjs.utc(dateVal).format("MMM D, YYYY h:mm A");
+      break;
+    case 3:
+      result = dayjs.utc(dateVal).format("YYYY-MM-DD");
+      break;
+    case 4:
+      result = dayjs.utc(dateVal).format("h:mm A");
+      break;
+    default:
+      result = dayjs.utc(dateVal).format();
+      break;
+  } // close switch
+  // Retuurn
+  return result;
 }; // close fxn
