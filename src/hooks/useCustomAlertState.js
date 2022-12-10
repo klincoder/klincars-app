@@ -11,6 +11,7 @@ const useCustomAlertState = () => {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState();
   const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Define navigation
   const navigation = useNavigation();
@@ -27,6 +28,12 @@ const useCustomAlertState = () => {
 
   // HANDLE HIDE ALERT
   const hideAlert = () => setVisible(false);
+
+  // SHOW LOADING
+  const showLoading = () => setLoading(true);
+
+  // HIDE LOADING
+  const hideLoading = () => setLoading(false);
 
   // HANDLE GO TO LOGIN SCREEN
   const goToLogin = () => {
@@ -64,9 +71,12 @@ const useCustomAlertState = () => {
     visible,
     message,
     hasError,
+    loading,
     setMessage,
     showAlert,
     hideAlert,
+    showLoading,
+    hideLoading,
     goToLogin,
     setHasError,
     handleErrorCode,

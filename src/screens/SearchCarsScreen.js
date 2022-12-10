@@ -34,7 +34,7 @@ const SearchCarsScreen = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [navigation]);
+  }, [navigation, isMounted]);
 
   // Return component
   return (

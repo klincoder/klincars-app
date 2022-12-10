@@ -57,7 +57,7 @@ const CustomListItem = ({
             <CustomIcon
               size={24}
               type={leftIconType || "antDesign"}
-              icon={leftIconName || "pluscircleo"}
+              name={leftIconName || "pluscircleo"}
               style={tw`text-[${appColors?.lightBlack}]`}
             />
           )}
@@ -101,7 +101,8 @@ const CustomListItem = ({
             {leftImage && (
               <Avatar
                 source={{ uri: leftImage }}
-                avatarStyle={tw`rounded-full`}
+                avatarStyle={tw`rounded-lg`}
+                size={24}
               />
             )}
 
@@ -110,7 +111,7 @@ const CustomListItem = ({
               <CustomIcon
                 size={24}
                 type={leftIconType || "antDesign"}
-                icon={leftIconName || "pluscircleo"}
+                name={leftIconName || "pluscircleo"}
                 style={tw`text-[${appColors?.lightBlack}]`}
               />
             )}

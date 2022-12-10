@@ -24,15 +24,16 @@ const CarCheckoutScreen = () => {
   const { user } = useAuthContext();
 
   // Define app settings
-  const { todaysDate, navigation, isMounted } = useAppSettings();
+  const { navigation } = useAppSettings();
 
   // Define state
   const bookingVal = useRecoilValue(carBookingAtom);
-  const resetBookingVal = useResetRecoilState(carBookingAtom);
-  const { carInfo, bookingInfo } = useCarState(bookingVal?.rowData);
+  const { carInfo, bookingInfo, handleCarCheckout } = useCarState(
+    bookingVal?.rowData
+  );
 
   // Debug
-  //console.log("Debug carCheckoutScreen: ",);
+  //console.log("Debug carCheckoutScreen: ", bookingVal?.rowData?.image);
 
   // Return component
   return (
@@ -57,10 +58,7 @@ const CarCheckoutScreen = () => {
           isNormal
           title="Checkout"
           styleNormalButton={tw`rounded-lg p-3 w-50 bg-[${appColors?.primary}]`}
-          onPress={() => {
-            resetBookingVal();
-            navigation.replace(routes.CAR_COMPLETE);
-          }}
+          onPress={handleCarCheckout}
         />
       </StickyBottomView>
 

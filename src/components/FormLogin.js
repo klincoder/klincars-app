@@ -9,18 +9,15 @@ import * as Yup from "yup";
 import routes from "../screens/routes";
 import CustomButton from "./CustomButton";
 import KeyboardAvoidWrapper from "./KeyboardAvoidWrapper";
-import CustomSpinner from "./CustomSpinner";
 import CustomAlertModal from "./CustomAlertModal";
 import useAppSettings from "../hooks/useAppSettings";
 import CustomTextInputForm from "./CustomTextInputForm";
 import useCustomToastState from "../hooks/useCustomToastState";
 import useCustomAlertState from "../hooks/useCustomAlertState";
-import useCustomSpinnerState from "../hooks/useCustomSpinnerState";
 import { useAuthContext } from "../context/AuthContext";
 import { handleSendEmail } from "../config/functions";
 import { alertMsg, apiRoutes } from "../config/data";
 import { fireAuth } from "../config/firebase";
-import { twStyles } from "../config/twStyles";
 
 // Component
 const FormLogin = () => {
@@ -33,14 +30,11 @@ const FormLogin = () => {
   // Define app settings
   const { todaysDate1, navigation } = useAppSettings();
 
-  // Define toast
-  const toast = useCustomToastState();
-
   // Define alert
   const alert = useCustomAlertState();
 
-  // Define spinner
-  const spinner = useCustomSpinnerState();
+  // Define toast
+  const toast = useCustomToastState();
 
   // Debug
   //console.log("Debug loginForm: ");
@@ -118,7 +112,10 @@ const FormLogin = () => {
             {/* {console.log("Debug formLoginValues: ", values)} */}
 
             {/** Show spinner */}
-            <CustomSpinner isLoading={isSubmitting || spinner.loading} />
+            <CustomAlertModal
+              isSpinner
+              visible={isSubmitting || alert.loading}
+            />
 
             {/** Alert modal */}
             <CustomAlertModal
@@ -184,9 +181,9 @@ const FormLogin = () => {
               styleText={[tw`mt-12`, twStyles?.linkBtn]}
               onPress={() => {
                 alert.showAlert("Test!");
-                //spinner.showLoading();
+                //alert.showLoading();
                 // setTimeout(() => {
-                //   spinner.hideLoading();
+                //   alert.hideLoading();
                 // }, 5000);
               }}
             >

@@ -16,7 +16,7 @@ const SavedNavigator = () => {
     {
       name: "SavedScreen",
       component: SavedScreen,
-      options: { headerTitle: "Post" },
+      options: { headerTitle: "Saved" },
     },
   ];
 

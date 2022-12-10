@@ -1,5 +1,5 @@
 // Import resources
-import React, { useRef, useCallback, useEffect, useMemo } from "react";
+import React, { useRef, useCallback, useEffect, useMemo, memo } from "react";
 import { ScrollView, View } from "react-native";
 import tw from "twrnc";
 import { useRoute } from "@react-navigation/native";
@@ -59,8 +59,11 @@ const CarBookingScreen = () => {
   // Define useMemo
   const paymentMethodSnap = useMemo(() => ["30%"], []);
 
+  // Define variables
+  const rowImage = carInfo?.image || bookingVal?.rowData?.images?.[0];
+
   // Debug
-  //console.log("Debug carBookingScreen: ", selectedImage);
+  //console.log("Debug carBookingScreen 1: ", rowImage);
 
   // FORM CONFIG
   // Initial values
@@ -91,16 +94,18 @@ const CarBookingScreen = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validate,
+    //enableReinitialize: true,
     onSubmit: async (values, { setSubmitting }) => {
       // Debug
       //console.log("Debug submitForm: ", values);
       // Set state
-      //setBookingVal(values);
       setSubmitting(false);
-      // Push too summary
       navigation.navigate(routes.CAR_CHECKOUT);
     }, // close fxn
   }); // close useFormik
+
+  // Debug
+  //console.log("Debug carBookingScreen: ", rowData);
 
   // FUNCTIONS
   // HANDLE PICKUP LOCATION SHEET
@@ -146,7 +151,7 @@ const CarBookingScreen = () => {
       {/** SCROLL VIEW */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/** Car image */}
-        <CustomImage isLink image={carInfo?.image} style={tw`w-full h-50`} />
+        <CustomImage isLink image={rowImage} style={tw`w-full h-50`} />
 
         {/** Form */}
         <View style={tw`px-1 pt-5 mb-20`}>
@@ -232,32 +237,6 @@ const CarBookingScreen = () => {
             onChangeDate={(e) => formik.setFieldValue("endDate", e)}
           />
 
-          {/** Proof of id */}
-          <CustomFilePicker
-            name="proofOfId"
-            label="Proof of Identity"
-            title={formik.values.proofOfId}
-            leftIconName="user"
-            errMsg={formik.errors.proofOfId}
-            helperText="E.g. Driver's license, National ID, Voter's card"
-            // onPress={async () => {
-            //   // Get info
-            //   const getInfo = await handlePickImage();
-            //   formik.setFieldValue("proofOfId", getInfo?.resFile1);
-            // }}
-          />
-
-          {/** Proof of address */}
-          <CustomFilePicker
-            name="proofOfAddr"
-            label="Proof of Address"
-            title={formik.values.proofOfAddr}
-            leftIconType="feather"
-            leftIconName="map"
-            errMsg={formik.errors.proofOfAddr}
-            helperText="E.g. Bank Statement or Utility bill"
-          />
-
           {/** Payment method */}
           <CustomSelect
             name="paymentMethod"
@@ -285,6 +264,32 @@ const CarBookingScreen = () => {
                 ))}
               </BottomSheetView>
             }
+          />
+
+          {/** Proof of id */}
+          <CustomFilePicker
+            name="proofOfId"
+            label="Proof of Identity"
+            title={formik.values.proofOfId}
+            leftIconName="user"
+            errMsg={formik.errors.proofOfId}
+            helperText="E.g. Driver's license, National ID, Voter's card"
+            // onPress={async () => {
+            //   // Get info
+            //   const getInfo = await handlePickImage();
+            //   formik.setFieldValue("proofOfId", getInfo?.resFile1);
+            // }}
+          />
+
+          {/** Proof of address */}
+          <CustomFilePicker
+            name="proofOfAddr"
+            label="Proof of Address"
+            title={formik.values.proofOfAddr}
+            leftIconType="feather"
+            leftIconName="map"
+            errMsg={formik.errors.proofOfAddr}
+            helperText="E.g. Bank Statement or Utility bill"
           />
         </View>
       </ScrollView>

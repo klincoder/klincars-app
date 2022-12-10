@@ -8,7 +8,6 @@ import * as Application from "expo-application";
 // Import custom files
 import routes from "../screens/routes";
 import logoImage from "../assets/logo.png";
-import locImage from "../assets/location.png";
 
 // BASE URL
 export const baseUrl = "https://klincoder.netlify.app";
@@ -80,7 +79,10 @@ export const appImages = {
     "https://firebasestorage.googleapis.com/v0/b/rentdrive-dev.appspot.com/o/speedometer-g33aa6cb3b_1920.jpg?alt=media&token=698a7fc7-50e1-4f2c-9e95-d51af126d420",
   onboarding2:
     "https://firebasestorage.googleapis.com/v0/b/klin-courier-dev.appspot.com/o/pexels-mizuno-k-13432001.jpg?alt=media&token=f94e5b20-4a75-4dc3-b7b3-2bbce9ca26b3",
-  location: "https://placehold.co/600x400.png", //"https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2018/png/iconmonstr-location-pin-thin.png",
+  location:
+    "https://firebasestorage.googleapis.com/v0/b/klincoder-dev.appspot.com/o/location.png?alt=media&token=805e5f4c-2a44-4bc9-95b9-096c392707ef",
+  payment:
+    "https://firebasestorage.googleapis.com/v0/b/klincoder-dev.appspot.com/o/payment-image.png?alt=media&token=9ed7178a-10f1-4bfd-ba60-88a97cadd954",
 };
 
 // APP THEME
@@ -459,12 +461,12 @@ export const paymentMethodList = [
     id: "123",
     title: "Pay on Pickup",
     description: "1hr reservation limit",
-    image: appImages?.general,
+    image: appImages?.payment,
   },
   {
     id: "456",
     title: "Pay Now",
     description: "Reserved unitl end date expires",
-    image: appImages?.general,
+    image: appImages?.payment,
   },
 ];

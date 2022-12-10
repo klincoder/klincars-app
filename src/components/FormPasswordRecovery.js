@@ -9,12 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 // Import custom files
 import routes from "../screens/routes";
 import KeyboardAvoidWrapper from "./KeyboardAvoidWrapper";
-import CustomSpinner from "./CustomSpinner";
 import CustomAlertModal from "./CustomAlertModal";
 import CustomTextInputForm from "./CustomTextInputForm";
 import CustomButton from "./CustomButton";
 import useCustomAlertState from "../hooks/useCustomAlertState";
-import useCustomSpinnerState from "../hooks/useCustomSpinnerState";
 import useAppSettings from "../hooks/useAppSettings";
 import { useAuthContext } from "../context/AuthContext";
 import { alertMsg } from "../config/data";
@@ -30,9 +28,6 @@ const FormPasswordRecovery = () => {
 
   // Define alert
   const alert = useCustomAlertState();
-
-  // Define spinner
-  const spinner = useCustomSpinnerState();
 
   // Debug
   //console.log("Debug formPassRecovery: ",);
@@ -93,7 +88,10 @@ const FormPasswordRecovery = () => {
             {/* {console.log("Form formValues: ", values)} */}
 
             {/** Show spinner */}
-            <CustomSpinner isLoading={isSubmitting || spinner.loading} />
+            <CustomAlertModal
+              isSpinner
+              visible={isSubmitting || alert.loading}
+            />
 
             {/** Alert modal */}
             <CustomAlertModal
@@ -118,7 +116,7 @@ const FormPasswordRecovery = () => {
             <CustomButton
               isPaper
               stylePaper={tw`mt-3`}
-              disabled={!isValid || isSubmitting || spinner.loading}
+              disabled={!isValid || isSubmitting || alert.loading}
               onPress={handleSubmit}
             >
               Send recovery link

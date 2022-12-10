@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import routes from "../screens/routes";
 import useAppSettings from "../hooks/useAppSettings";
 import useCustomToastState from "../hooks/useCustomToastState";
-import { alertMsg, baseUrl } from "../config/data";
+import { alertMsg, appImages, baseUrl } from "../config/data";
 import { allUsersAtom } from "../recoil/atoms";
 import { handleFormatDate } from "../config/functions";
 import {
@@ -34,8 +34,8 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthContextProvider = ({ children }) => {
   // Define state
   const allUsers = useRecoilValue(allUsersAtom);
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   // Define app settings
   const { navigation } = useAppSettings();
@@ -44,6 +44,10 @@ export const AuthContextProvider = ({ children }) => {
   const toast = useCustomToastState();
 
   // Define variables
+  const userID = user?.id;
+  const username = user?.username;
+  const userAvatar = user?.avatar || appImages?.avatar;
+  const userPushStatus = user?.pushStatus;
   const actionCodeSettings = {
     url: baseUrl,
   };
@@ -104,7 +108,7 @@ export const AuthContextProvider = ({ children }) => {
     setUser(null);
     await signOut(fireAuth);
     toast.success(alertMsg?.logoutSucc);
-    navigation.navigate(routes.ONBOARDING);
+    navigation.replace(routes.ONBOARDING);
   }; // close fxn
 
   // HANDLE SEND EMAIL VERIFY LINK
@@ -182,8 +186,12 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
         loading,
+        user,
+        userID,
+        username,
+        userAvatar,
+        userPushStatus,
         setUser,
         handleRegister,
         handleLogin,

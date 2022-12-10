@@ -9,15 +9,18 @@ import CustomText from "./CustomText";
 import CustomIcon from "./CustomIcon";
 import useCustomAlertState from "../hooks/useCustomAlertState";
 import { useAuthContext } from "../context/AuthContext";
-import { alertMsg, appColors } from "../config/data";
+import { alertMsg, appColors, appFonts } from "../config/data";
 
 // Component
-function Logout({ isNormal, isButton, ...rest }) {
+function LogoutBtn({ title, styleTitle, styleIcon, styleContainer }) {
   // Define auth context
   const { handleLogout } = useAuthContext();
 
   // Define alert
   const alert = useCustomAlertState();
+
+  // Debug
+  //console.log("Debug logoutBtn: ")
 
   // FUNCTIONS
   // HANDLE CONFIRM LOGOUT
@@ -35,41 +38,41 @@ function Logout({ isNormal, isButton, ...rest }) {
         hideDialog={alert.hideAlert}
         cancelAction={alert.hideAlert}
         confirmAction={async () => {
-          // Hide alert
           alert.hideAlert();
           await handleLogout();
         }}
       />
 
-      {/** isNormal */}
-      {isNormal && (
-        <CustomButton
-          isTouchable
-          onPress={handleConfirmLogout}
-          styleTouchable={tw`flex-row items-center`}
-        >
-          <CustomIcon
-            type="materialIcons"
-            icon="logout"
-            size={20}
-            style={tw`mr-2`}
-          />
-          {/** Label */}
-          <CustomText style={tw`text-lg font-medium`}>Logout</CustomText>
-        </CustomButton>
-      )}
+      {/** BUTTON CONTAINER */}
+      <CustomButton
+        isTouchable
+        onPress={handleConfirmLogout}
+        styleTouchable={[tw`flex-row items-center`, styleContainer]}
+      >
+        {/** Icon */}
+        <CustomIcon
+          type="materialIcons"
+          name="logout"
+          size={24}
+          style={[styleIcon, title && tw`mr-2`]}
+        />
 
-      {/** isButton */}
-      {isButton && (
-        <CustomButton isTouchable onPress={handleConfirmLogout}>
-          <CustomText style={tw`text-base`}>
-            <CustomIcon type="materialIcons" icon="logout" /> Logout
+        {/** Title */}
+        {title && (
+          <CustomText
+            style={[
+              styleTitle,
+              tw`text-lg text-[${appColors?.black}]`,
+              { fontFamily: appFonts?.regular },
+            ]}
+          >
+            {title}
           </CustomText>
-        </CustomButton>
-      )}
+        )}
+      </CustomButton>
     </>
   ); // close return
 } // close component
 
 // Export
-export default Logout;
+export default LogoutBtn;

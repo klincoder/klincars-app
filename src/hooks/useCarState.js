@@ -1,11 +1,13 @@
 // Import resources
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 
 // Import custom files
+import routes from "../screens/routes";
+import useAppSettings from "./useAppSettings";
 //import { activeCarsAtom } from "../recoil/atoms";
 import { carBrandList, carsList, currSymbol } from "../config/data";
-import { carBookingAtom } from "../recoil/atoms";
+import { carBookingAtom, carCompleteAtom } from "../recoil/atoms";
 import {
   handleDayJsDiff,
   handleDayJsFormat,
@@ -19,9 +21,14 @@ const useCarState = (rowData) => {
   const activeCars = carsList; //useRecoilValue(activeCarsAtom);
   const activeBrands = carBrandList; //useRecoilValue(activeBrandsAtom);
   const bookingVal = useRecoilValue(carBookingAtom);
+  const [completeInfo, setCompleteInfo] = useRecoilState(carCompleteAtom);
   const [tempCars, setTempCars] = useState(activeCars);
   const [selectedBrand, setSelectedBrand] = useState("all");
   const [withDriver, setWithDriver] = useState(false);
+  const resetBookingVal = useResetRecoilState(carBookingAtom);
+
+  // Define app settings
+  const { navigation } = useAppSettings();
 
   // Define variables
   const tempCarsLen = tempCars?.length;
@@ -80,6 +87,7 @@ const useCarState = (rowData) => {
     { key: "Total Payment", value: bookingPriceFormat },
   ];
   const bookingInfo = {
+    carName: carInfo?.title,
     pickupLoc: bookingPickupLoc,
     returnLoc: bookingReturnLoc,
     startDate: bookingStartDate,
@@ -158,6 +166,14 @@ const useCarState = (rowData) => {
     } // close if
   }; // close fxn
 
+  // HANDLE CAR CHECKOUT
+  const handleCarCheckout = () => {
+    // Set state
+    setCompleteInfo(bookingInfo);
+    resetBookingVal();
+    navigation.replace(routes.CAR_COMPLETE);
+  }; // close fxn
+
   // Return component
   return {
     selectedBrand,
@@ -166,9 +182,11 @@ const useCarState = (rowData) => {
     tempCars,
     carInfo,
     bookingInfo,
+    completeInfo,
     handleSearchCars,
     handleSelectedBrand,
     handleWithDriver,
+    handleCarCheckout,
   }; // close return
 }; // close component
 

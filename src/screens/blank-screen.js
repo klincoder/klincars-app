@@ -15,7 +15,7 @@ const BlankScreen = () => {
   const { user } = useAuthContext();
 
   // Define app settings
-  const { todaysDate, navigation, isMounted } = useAppSettings();
+  const { navigation, isMounted } = useAppSettings();
 
   // Debug
   //console.log("Debug blankScreen: ",);
@@ -38,7 +38,7 @@ const BlankScreen = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [navigation]);
+  }, [navigation, isMounted]);
 
   // Return component
   return (

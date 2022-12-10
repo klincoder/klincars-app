@@ -35,10 +35,7 @@ const CustomChip = ({
             tw`text-white`,
             { fontFamily: appFonts?.medium },
           ]}
-          containerStyle={[
-            styleContainer,
-            tw`border border-[${appColors?.primary}]`,
-          ]}
+          containerStyle={[styleContainer, tw`border-[${appColors?.primary}]`]}
         />
       ) : (
         <Chip

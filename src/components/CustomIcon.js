@@ -14,7 +14,7 @@ import {
 } from "@expo/vector-icons";
 
 // Component
-const CustomIcon = ({ type, icon, ...rest }) => {
+const CustomIcon = ({ type, name, ...rest }) => {
   // Debug
   //console.log("Debug customIcon: ")
 
@@ -23,36 +23,36 @@ const CustomIcon = ({ type, icon, ...rest }) => {
     <>
       {/** ICONS */}
       {/** MaterialIcons */}
-      {type === "materialIcons" && <MaterialIcons name={icon} {...rest} />}
+      {type === "materialIcons" && <MaterialIcons name={name} {...rest} />}
 
       {/** AntDesign */}
-      {type === "antDesign" && <AntDesign name={icon} {...rest} />}
+      {type === "antDesign" && <AntDesign name={name} {...rest} />}
 
       {/** FontAwesome5 */}
-      {type === "fontAwesome5" && <FontAwesome5 name={icon} {...rest} />}
+      {type === "fontAwesome5" && <FontAwesome5 name={name} {...rest} />}
 
       {/** Entypo */}
-      {type === "entypo" && <Entypo name={icon} {...rest} />}
+      {type === "entypo" && <Entypo name={name} {...rest} />}
 
       {/** Ionicons */}
-      {type === "ionIcons" && <Ionicons name={icon} {...rest} />}
+      {type === "ionIcons" && <Ionicons name={name} {...rest} />}
 
       {/** Evilicons */}
-      {type === "evilIcons" && <EvilIcons name={icon} {...rest} />}
+      {type === "evilIcons" && <EvilIcons name={name} {...rest} />}
 
       {/** Material community icons */}
       {type === "materialCommunityIcons" && (
-        <MaterialCommunityIcons name={icon} {...rest} />
+        <MaterialCommunityIcons name={name} {...rest} />
       )}
 
       {/** Feather */}
-      {type === "feather" && <Feather name={icon} {...rest} />}
+      {type === "feather" && <Feather name={name} {...rest} />}
 
       {/** Octicons */}
-      {type === "octIcons" && <Octicons name={icon} {...rest} />}
+      {type === "octIcons" && <Octicons name={name} {...rest} />}
 
       {/** FontAwesome */}
-      {type === "fontAwesome" && <FontAwesome name={icon} {...rest} />}
+      {type === "fontAwesome" && <FontAwesome name={name} {...rest} />}
     </>
   ); // return component
 }; // close component

@@ -99,7 +99,7 @@ export const CarItemImageCount = ({ imageLen }) => {
   return (
     <View style={tw`absolute bottom-0 p-1 rounded-t-md bg-black`}>
       <CustomText style={tw`text-white`}>
-        <CustomIcon type="feather" icon="camera" /> {imageLen || 0}
+        <CustomIcon type="feather" name="camera" /> {imageLen || 0}
       </CustomText>
     </View>
   ); // close return
@@ -129,7 +129,7 @@ export const CarItemMeta = ({ title, iconType, iconName, styleMeta }) => {
     <CustomText
       style={[tw`text-xs`, { fontFamily: appFonts?.regular }, styleMeta]}
     >
-      <CustomIcon type={iconType} icon={iconName} /> {title}
+      <CustomIcon type={iconType} name={iconName} /> {title}
     </CustomText>
   ); // close return
 }; // close component

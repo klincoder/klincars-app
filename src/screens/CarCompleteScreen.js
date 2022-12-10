@@ -2,19 +2,17 @@
 import React from "react";
 import { View } from "react-native";
 import tw from "twrnc";
-import { useRecoilValue } from "recoil";
 
 // Import custom files
+import routes from "./routes";
+import CustomChip from "../components/CustomChip";
 import CustomSafeView from "../components/CustomSafeView";
 import CustomText from "../components/CustomText";
 import useAppSettings from "../hooks/useAppSettings";
 import useCarState from "../hooks/useCarState";
 import CustomIcon from "../components/CustomIcon";
 import { useAuthContext } from "../context/AuthContext";
-import { carBookingAtom } from "../recoil/atoms";
 import { appColors, appFonts } from "../config/data";
-import CustomChip from "../components/CustomChip";
-import routes from "./routes";
 
 // Component
 const CarCompleteScreen = () => {
@@ -22,20 +20,13 @@ const CarCompleteScreen = () => {
   const { user } = useAuthContext();
 
   // Define app settings
-  const { todaysDate, navigation, isMounted } = useAppSettings();
+  const { navigation } = useAppSettings();
 
   // Define state
-  const bookingVal = useRecoilValue(carBookingAtom);
-  const { carInfo, bookingInfo } = useCarState(bookingVal?.rowData);
-
-  // Define variables
-  const customNoteText = [tw`text-base`, { fontFamily: appFonts?.medium }];
+  const { completeInfo } = useCarState();
 
   // Debug
-  // console.log("Debug carCompleteScreen: ", {
-  //   start: typeof bookingInfo?.startDateFormat,
-  //   end: typeof bookingInfo?.endDateFormat,
-  // });
+  //console.log("Debug carCompleteScreen: ", completeInfo);
 
   // Return component
   return (
@@ -45,7 +36,7 @@ const CarCompleteScreen = () => {
         {/** Icon */}
         <CustomIcon
           type="feather"
-          icon="check-circle"
+          name="check-circle"
           size={80}
           style={tw`mb-3 text-[${appColors?.primary}]`}
         />
@@ -67,8 +58,8 @@ const CarCompleteScreen = () => {
           <CustomText
             style={[tw`text-center text-lg`, { fontFamily: appFonts?.regular }]}
           >
-            You've successfully booked {carInfo?.title} for{" "}
-            {bookingInfo?.daysFormat} {`(${bookingInfo?.priceFormat}).`}
+            You've successfully booked {completeInfo?.carName} for{" "}
+            {completeInfo?.daysFormat} {`(${completeInfo?.priceFormat}).`}
           </CustomText>
         </View>
 

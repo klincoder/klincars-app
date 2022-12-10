@@ -12,10 +12,8 @@ import CustomText from "../components/CustomText";
 import useAppSettings from "../hooks/useAppSettings";
 import CustomIcon from "../components/CustomIcon";
 import CustomButton from "../components/CustomButton";
-import CustomSpinner from "../components/CustomSpinner";
 import useCustomToastState from "../hooks/useCustomToastState";
 import useCustomAlertState from "../hooks/useCustomAlertState";
-import useCustomSpinnerState from "../hooks/useCustomSpinnerState";
 import CustomAlertModal from "../components/CustomAlertModal";
 import SaveCarIcon from "../components/SaveCarIcon";
 import ShareIcon from "../components/ShareIcon";
@@ -42,20 +40,17 @@ const CarDetailsScreen = () => {
   const route = useRoute();
   const rowData = route.params?.rowData;
 
+  // Define app settings
+  const { navigation, isMounted } = useAppSettings();
+
   // Define car state
   const { carInfo } = useCarState(rowData);
-
-  // Define toast
-  const toast = useCustomToastState();
 
   // Define alert
   const alert = useCustomAlertState();
 
-  // Define spinner
-  const spinner = useCustomSpinnerState();
-
-  // Define app settings
-  const { todaysDate, navigation, isMounted } = useAppSettings();
+  // Define toast
+  const toast = useCustomToastState();
 
   // Define specs list
   const specsList = [
@@ -162,9 +157,7 @@ const CarDetailsScreen = () => {
       headerTitleAlign: "left",
       headerRight: () => (
         <View style={tw`flex-row items-center pr-5`}>
-          {/** Save car icon */}
           <SaveCarIcon rowData={rowData} />
-          {/** Share icon */}
           <ShareIcon title={carInfo?.title} slug={carInfo?.slug} />
         </View>
       ), // close header right
@@ -173,7 +166,7 @@ const CarDetailsScreen = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [isMounted, navigation]);
+  }, [navigation, isMounted]);
 
   // Return component
   return (
@@ -236,7 +229,7 @@ const CarDetailsScreen = () => {
               >
                 <CustomIcon
                   type={item?.iconType}
-                  icon={item?.iconName}
+                  name={item?.iconName}
                   size={24}
                   color={appColors?.lightBlack}
                 />
@@ -265,7 +258,7 @@ const CarDetailsScreen = () => {
                     { fontFamily: appFonts?.medium },
                   ]}
                 >
-                  <CustomIcon type={item?.iconType} icon={item?.iconName} />{" "}
+                  <CustomIcon type={item?.iconType} name={item?.iconName} />{" "}
                   {item?.desc}
                 </CustomText>
               </View>

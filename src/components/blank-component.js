@@ -10,7 +10,7 @@ import useAppSettings from "../hooks/useAppSettings";
 // Component
 const BlankComponent = () => {
   // Define app settings
-  const { isMounted } = useAppSettings();
+  const { navigation } = useAppSettings();
 
   // Debug
   //console.log("Debug blankComponent: ",)

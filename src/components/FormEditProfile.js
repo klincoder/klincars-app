@@ -8,12 +8,10 @@ import tw from "twrnc";
 // Import custom files
 import routes from "../screens/routes";
 import useAppSettings from "../hooks/useAppSettings";
-import CustomSpinner from "./CustomSpinner";
 import KeyboardAvoidWrapper from "./KeyboardAvoidWrapper";
 import CustomAlertModal from "./CustomAlertModal";
 import CustomButton from "./CustomButton";
 import CustomTextInputForm from "./CustomTextInputForm";
-import CustomText from "./CustomText";
 import useCustomAlertState from "../hooks/useCustomAlertState";
 import useCustomToastState from "../hooks/useCustomToastState";
 import { useAuthContext } from "../context/AuthContext";
@@ -141,7 +139,7 @@ const FormEditProfile = () => {
             {/* {console.log("Debug formEditProfValues: ", values)} */}
 
             {/** Show spinner */}
-            <CustomSpinner isLoading={isSubmitting} />
+            <CustomAlertModal isSpinner visible={isSubmitting} />
 
             {/** Alert modal */}
             <CustomAlertModal

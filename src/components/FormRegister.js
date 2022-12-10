@@ -9,12 +9,10 @@ import * as Yup from "yup";
 import KeyboardAvoidWrapper from "./KeyboardAvoidWrapper";
 import useAppSettings from "../hooks/useAppSettings";
 import CustomAlertModal from "./CustomAlertModal";
-import CustomSpinner from "./CustomSpinner";
 import CustomButton from "./CustomButton";
 import CustomTextInputForm from "./CustomTextInputForm";
 import CustomText from "./CustomText";
 import useCustomAlertState from "../hooks/useCustomAlertState";
-import useCustomToastState from "../hooks/useCustomToastState";
 import { useAuthContext } from "../context/AuthContext";
 import { alertMsg, apiRoutes, appColors, appRegex } from "../config/data";
 import { fireAuth, fireDB, setDoc, doc } from "../config/firebase";
@@ -37,9 +35,6 @@ const FormRegister = () => {
 
   // Define alert
   const alert = useCustomAlertState();
-
-  // Define spinner
-  const spinner = useCustomToastState();
 
   // Debug
   //console.log("Debug formRegister: ",);
@@ -155,7 +150,10 @@ const FormRegister = () => {
             {/* {console.log("Debug formValues: ", values)} */}
 
             {/** Show spinner */}
-            <CustomSpinner isLoading={spinner.loading || isSubmitting} />
+            <CustomAlertModal
+              isSpinner
+              visible={alert.loading || isSubmitting}
+            />
 
             {/** Alert modal */}
             <CustomAlertModal
@@ -205,7 +203,7 @@ const FormRegister = () => {
               isNormal
               title="Create Account"
               onPress={handleSubmit}
-              disabled={!isValid || isSubmitting || spinner?.loading}
+              disabled={!isValid || isSubmitting || alert?.loading}
             />
 
             {/** TEST BUTTON */}

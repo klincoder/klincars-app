@@ -1,8 +1,10 @@
 // Import resources
-import React, { useRef } from "react";
-import moment from "moment";
+import { useRef } from "react";
 import { useRecoilValue } from "recoil";
 import { useNavigation } from "@react-navigation/native";
+import dayjs from "dayjs";
+import dayjsUTC from "dayjs/plugin/utc";
+dayjs.extend(dayjsUTC);
 
 // Import custom files
 import { handleFormatDate } from "../config/functions";
@@ -10,20 +12,20 @@ import { appSettingsAtom, networkDataAtom } from "../recoil/atoms";
 
 // Component
 const useAppSettings = () => {
+  // Define isMounted
+  const isMounted = useRef();
+
   // Define state
   const appSettings = useRecoilValue(appSettingsAtom);
   const networkState = useRecoilValue(networkDataAtom);
 
-  // Define todays date
-  const todaysDate = moment.utc().format();
-  const todaysDate1 = handleFormatDate(todaysDate, 1);
-  const todaysDate2 = handleFormatDate(todaysDate, 2);
-
   // Define navigaion
   const navigation = useNavigation();
 
-  // Define isMounted
-  const isMounted = useRef();
+  // Define todays date
+  const todaysDate = dayjs().utc().format();
+  const todaysDate1 = handleFormatDate(todaysDate, 1);
+  const todaysDate2 = handleFormatDate(todaysDate, 2);
 
   // Define site info
   const siteInfo = {

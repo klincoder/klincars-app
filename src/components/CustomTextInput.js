@@ -59,7 +59,7 @@ const CustomTextInput = ({
       leftIcon={
         <CustomIcon
           type={leftIconType || "antDesign"}
-          icon={leftIconName || "user"}
+          name={leftIconName || "user"}
           onPress={leftIconOnPress}
           size={24}
           color={focused ? appColors?.primary : appColors?.lightBlack}
@@ -69,7 +69,7 @@ const CustomTextInput = ({
         rightIconName && (
           <CustomIcon
             type={rightIconType || "antDesign"}
-            icon={rightIconName || "user"}
+            name={rightIconName || "user"}
             onPress={rightIconOnPress}
             size={24}
             color={focused ? appColors?.primary : appColors?.lightBlack}

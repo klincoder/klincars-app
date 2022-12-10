@@ -1,5 +1,6 @@
 // Import resources
 import React from "react";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import tw from "twrnc";
 
@@ -10,7 +11,8 @@ import CustomIcon from "../components/CustomIcon";
 import SearchCarsNavigator from "./SearchCarsNavigator";
 import PostCarNavigator from "./PostCarNavigator";
 import SavedNavigator from "./SavedNavigator";
-import { appColors } from "../config/data";
+import { appColors, appFonts } from "../config/data";
+import CustomText from "../components/CustomText";
 
 // Create bottom nav object
 const Tab = createBottomTabNavigator();
@@ -66,17 +68,9 @@ const HomeNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      //shifting={false}
-      //sceneAnimationEnabled={false}
-      labeled={true}
-      activeColor={appColors?.primary}
-      inactiveColor={appColors?.gray}
-      screenOptions={{ headerShown: false }}
-      barStyle={{
-        color: appColors?.gray,
-        backgroundColor: appColors?.white,
-        borderTopWidth: 2,
-        borderTopColor: appColors?.lightGray,
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: tw`pb-1`,
       }}
     >
       {/** Loop tabScreenList */}
@@ -86,15 +80,26 @@ const HomeNavigator = () => {
           name={item?.name}
           component={item?.component}
           options={{
-            tabBarLabel: item?.label,
-            tabBarLabelStyle: { color: "black", marginBottom: 5 },
-            tabBarIcon: ({ focused, color }) => (
+            tabBarLabel: ({ focused, color, position }) => (
+              <CustomText
+                style={[
+                  tw`text-xs`,
+                  { fontFamily: appFonts?.regular },
+                  focused
+                    ? tw`text-[${appColors?.primary}]`
+                    : `text-[${color}]`,
+                ]}
+              >
+                {item?.label}
+              </CustomText>
+            ),
+            tabBarIcon: ({ focused, color, size }) => (
               <CustomIcon
-                size={24}
+                size={size}
                 type={item?.iconType}
-                icon={focused ? item?.activeIcon : item?.iconName}
-                color={focused ? appColors?.primary : appColors?.gray}
-                style={{ marginTop: 5 }}
+                name={focused ? item?.activeIcon : item?.iconName}
+                color={focused ? appColors?.primary : color}
+                style={tw`mt-1`}
               />
             ),
           }}

@@ -5,14 +5,9 @@ import tw from "twrnc";
 import { Overlay } from "@rneui/themed";
 
 // Import custom files
-import CustomText from "./CustomText";
-import useAppSettings from "../hooks/useAppSettings";
 
 // Component
 const CustomOverlay = ({ visible, children, ...rest }) => {
-  // Define app settings
-  const { isMounted } = useAppSettings();
-
   // Debug
   //console.log("Debug CustomOverlay: ",)
 

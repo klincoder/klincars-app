@@ -62,15 +62,14 @@ const FormSearchCars = () => {
           }}
         />
 
-        {/** Filter */}
-        <CustomButton
-          isTouchable
+        {/** Filter icon */}
+        <CustomIcon
+          type="feather"
+          name="filter"
+          size={28}
           onPress={handleShowFilter}
-          //styleTouchable={tw`w-1/12`}
           disabled={!isSearchScreen}
-        >
-          <CustomIcon type="feather" icon="filter" size={28} />
-        </CustomButton>
+        />
       </View>
 
       {/** MODAL - FILTER */}

@@ -57,3 +57,9 @@ export const carBookingAtom = atom({
   key: "carBookingAtom",
   default: null,
 });
+
+// CAR COMPLETE ATOM
+export const carCompleteAtom = atom({
+  key: "carCompleteAtom",
+  default: null,
+});

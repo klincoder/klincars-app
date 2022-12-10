@@ -33,7 +33,7 @@ const PaymentMethodItem = ({
       onPressLink={onPress}
       hideDivider={isSelected}
       containerStyle={[
-        tw`p-0 p-3`,
+        //tw`p-0 p-3`,
         isSelected && tw`rounded-lg border border-[${appColors?.primary}]`,
       ]}
     />
