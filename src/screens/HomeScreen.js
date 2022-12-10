@@ -9,7 +9,6 @@ import useAppSettings from "../hooks/useAppSettings";
 import CustomSafeView from "../components/CustomSafeView";
 import FormSearchCars from "../components/FormSearchCars";
 import CustomButton from "../components/CustomButton";
-import CustomText from "../components/CustomText";
 import useCarState from "../hooks/useCarState";
 import HomeHeader from "../components/HomeHeader";
 import CarItem from "../components/CarItem";
