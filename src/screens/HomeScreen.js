@@ -63,9 +63,9 @@ const HomeScreen = () => {
         <FlatList
           data={tempCars}
           keyExtractor={(item) => item?.id}
-          showsVerticalScrollIndicator={false}
           numColumns={2}
           initialNumToRender={12}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => <CarItem rowData={item} />}
           ListHeaderComponent={
             <HomeHeader
